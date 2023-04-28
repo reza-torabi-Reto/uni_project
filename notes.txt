@@ -1,5 +1,8 @@
 1.add comments for product: افزودن امکان کامنت گذاری برای یک محصول که ادمین بتواند به آن پاسخ بدهد
 [+] create model-Review , view-Reviw, form-Review, template-comment
 [] push to githab
+# سناریو برای بخش دیدگاه ها:
+بازدیدکننده نظر میزاره،ادمین تایید میکنه و نمایش داده میشه.ادمین میتواند پاسخ بدهد.
+[] continiue create section comments
 
 2.create index page
