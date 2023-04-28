@@ -1,0 +1,30 @@
+<ul class="droopmenu-grid droopmenu-grid-9">
+    <li class="droopmenu-tabs droopmenu-tabs-vertical">
+        <div class="droopmenu-tabsection droopmenu-tab-active" id="droopmenutab10">
+            <a class="droopmenu-tabheader" href="#">کالای دیجیتال</a>
+            <div class="droopmenu-tabcontent">
+                <div class="droopmenu-row">
+                    <ul class="droopmenu-col droopmenu-col4">
+                        {% for c in allCategory %}
+                            {% if not c.parent %}
+                                {% if not c.children.all %}
+                                    <li><a href="{% url 'shop:products-category' c.slug %}"><h4>{{ c.title }}</h4></a></li>
+                                {% else %}
+                                    <li><a href="{% url 'shop:products-category' c.slug %}"><h4>{{ c.title }}</h4><a/></li>
+                                    {% for sub in c.children.all %}
+                                        {% if not sub.children.all %}
+                                            <li><a href="{% url 'shop:products' sub.slug %}">{{ sub.title }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <ul class="droopmenu-col droopmenu-col4 d-none d-lg-inline-block">
+                        <li><img src="assets/images/megamenu/megamenu-image1.png" alt=""></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
