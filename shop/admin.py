@@ -1,7 +1,20 @@
 from django.contrib import admin
 from .models import *
-
 admin.site.site_header = 'پنل مدیریت'
+
+
+def publish(self, request, queryset):
+    queryset.update(approved_comment= True)
+
+
+publish.short_description = "نمایش انتخاب شده ها"
+
+
+def hide(self, request, queryset):
+    queryset.update(approved_comment= False)
+
+
+hide.short_description = "پنهان کردن انتخاب شده ها"
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -23,8 +36,16 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ['name', 'slug',]
     save_on_top = True
     list_per_page = 10
-    inlines = [ProductImageAdmin, FeatureProductAdmin]
+    inlines = [ProductImageAdmin, FeatureProductAdmin,]
+
+
+class ReviewAdmin(admin.ModelAdmin):
+    fields = ['created',  'product', 'name', 'text', 'replay', 'approved_comment']
+    list_display = ['name','jCreated', 'approved_comment', 'product']
+    readonly_fields = ['created',  'product' , 'name']
+    actions = [publish, hide]
 
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
+admin.site.register(Review, ReviewAdmin)

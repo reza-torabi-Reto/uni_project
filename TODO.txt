@@ -1,8 +1,26 @@
-1.add comments for product: افزودن امکان کامنت گذاری برای یک محصول که ادمین بتواند به آن پاسخ بدهد
+todo add comments for product:
 [+] create model-Review , view-Reviw, form-Review, template-comment
-[] push to githab
-# سناریو برای بخش دیدگاه ها:
-بازدیدکننده نظر میزاره،ادمین تایید میکنه و نمایش داده میشه.ادمین میتواند پاسخ بدهد.
-[] continiue create section comments
+[+] active git
+[+] continiue create section comments
+[+] title conut cmnts
+[+] add replay cmnts
+[+] action for active new-camment
+[+] convert date-m to date-shamsi
+[] fixed message new-comment
+todo create index page
 
-2.create index page
+
+
+
+
+bugs:
+باگهای فرانت اند بخش منو حل شود![]
+!باگ نمایش پیام برای دیدگاه جدید []
+
+
+
+notes
+## سناریو برای بخش دیدگاه ها##
+بازدیدکننده نظر میزاره،ادمین تایید میکنه و نمایش داده میشه.ادمین میتواند پاسخ بدهد.
+
+##

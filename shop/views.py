@@ -51,16 +51,23 @@ def products_list(request):
 # add comment
 def product(request, slug):
     product = get_object_or_404(Product, Q(slug=slug) & ~Q(status='h') & ~Q(category__status='h'))
-    comments = Product.comments.filter(approved_comment=True)
+    comments = Review.objects.filter(approved_comment=True).order_by('-created')
+    new_c = None
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.product = product
             comment.save()
-            return redirect('product', pk=product.pk)
+            new_c = 'ok'
+
+            return render(request, "shop/product.html", {'product': product,
+                                                         'comments': comments,
+                                                         'new_c': new_c,
+                                                         'comment_form': comment_form})
     else:
         comment_form = CommentForm()
-    return render(request, "shop/product.html", {'post': product,
+        return render(request, "shop/product.html", {'product': product,
+                                                     'new_c': None,
                                                      'comments': comments,
                                                      'comment_form': comment_form})

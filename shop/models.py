@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from extensions.utils import jalali_canvert
+
 import uuid
 import os
 
@@ -37,7 +39,7 @@ class Product(models.Model):
     )
     status = models.CharField(max_length=1, choices=STATUS_CHOISE, verbose_name='وضعیت')
     slug = models.SlugField(unique=True,allow_unicode=True , verbose_name='نامک')
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, verbose_name="نام")
     description = models.TextField(blank=True, max_length=600, verbose_name='توضیحات')
     review = models.TextField(blank=True, max_length=600, verbose_name='نقد و بررسی')
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -51,6 +53,15 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-price']
+        verbose_name = 'کالا'
+        verbose_name_plural = 'کالاها'
+
+    def __str__(self):
+        return f'{self.category} - {self.name}'
+
+    def jCreated(self):
+        return jalali_canvert(self.created)
+    jCreated.short_description = 'تاریخ ایجاد'
 
 
 #Images of Product
@@ -76,12 +87,13 @@ class FeatureProduct(models.Model):
 
 #Comments of Product
 class Review(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments')
-    name = models.CharField(max_length=255)
-    text = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments', verbose_name='کالا')
+    name = models.CharField(max_length=255, verbose_name='بازدیدکننده')
+    text = models.TextField(verbose_name='پیام')
+    replay = models.TextField(null=True, blank=True, verbose_name='پسخ')
     email = models.EmailField(verbose_name='رایانامه')
     created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ درج پیام')
-    approved_comment = models.BooleanField(default=False)
+    approved_comment = models.BooleanField(default=False, verbose_name='نمایش پیام')
     parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE, related_name='replies')
 
     def approve(self):
@@ -89,4 +101,13 @@ class Review(models.Model):
         self.save()
 
     def __str__(self):
-        return self.text
+        return self.name
+
+    class Meta:
+        verbose_name = 'دیدگاه'
+        verbose_name_plural = 'دیدگاه ها'
+
+
+    def jCreated(self):
+        return jalali_canvert(self.created)
+    jCreated.short_description = 'تاریخ ایجاد'

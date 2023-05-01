@@ -164,7 +164,7 @@
                                             <div id="tabs-panel">
                                                 <button class="tab-item tablink px-3 selected" onclick="openTab(event,'html-tab')">نقد و بررسی</button>
                                                 <button class="tab-item tablink px-3" onclick="openTab(event,'details-tab')">جدول مشخصات</button>
-                                                <button class="tab-item tablink px-3" onclick="openTab(event,'comments-tab')">دیدگاه کاربران (2)</button>
+                                                <button class="tab-item tablink px-3" onclick="openTab(event,'comments-tab')">دیدگاه کاربران ({{ comments.count }})</button>
                                             </div>
                                         </div>
                                     </div>
@@ -207,47 +207,42 @@
                                                                     <div class="row">
                                                                         <div class="col-12 pt-2">
      <!-- Show Comments -->
+
                                                                             {% for c in comments %}
                                                                             <div class="comment p-3 my-2">
                                                                                 <div class="sender-details">
                                                                                     <div class="row">
-                                                                                        <div class="col-3 col-sm-2 col-md-1 pl-md-0 pl-lg-2 pl-xl-3">
-                                                                                            <img src="assets/images/user-no-image.jpg" alt="" class="rounded">
-                                                                                        </div>
                                                                                         <div class="col-9 col-sm-10 col-md-11 pr-0 pr-md-2 pr-xl-0 pt-0 pt-lg-1">
                                                                                             <div class="name">{{ c.name }}</div>
-                                                                                            <div class="date">ارسال شده در {{ c.created_date }}</div>
+                                                                                            <div class="date">ارسال شده در {{ c.jCreated }}</div>
                                                                                         </div>
                                                                                         <div class="col-12">
                                                                                             <p>
-                                                                                                c.text
+                                                                                                {{ c.text }}
                                                                                             </p>
-                                                                                            <span class="reply"><img src="assets/images/comment-reply.png" alt=""> ارسال پاسخ</span>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
 
                                                                                 <!-- Comment Reply -->
-                                                                                <div class="row justify-content-end">
-                                                                                    <div class="col-11 pt-2 pr-0">
+{% if c.replay != None %}                                                                                                                                                                <div class="row justify-content-end">
+                                                                                           <div class="col-11 pt-2 pr-0">
                                                                                         <div class="comment p-3">
                                                                                             <div class="sender-details">
                                                                                                 <div class="row">
-                                                                                                    <div class="col-3 col-sm-2 col-md-1 pl-md-0 pl-lg-2 pl-xl-3">
-                                                                                                        <img src="assets/images/user-no-image.jpg" alt="" class="rounded">
-                                                                                                    </div>
                                                                                                     <div class="col-9 col-sm-10 col-md-11 pr-0 pr-md-2 pr-xl-0 pt-0 pt-lg-1">
-                                                                                                        <div class="name">امین کیانی</div>
+                                                                                                        <div class="name">پاسخ ادمین</div>
                                                                                                         <div class="date">ارسال شده در 18 تیر 1400</div>
                                                                                                     </div>
                                                                                                     <div class="col-12">
-                                                                                                        <p>صفحات و محتوای آزمایشی همیشه بخشی از محتوای پیش‌نمایش قالب و افزونه های وب هستند که شما بتوانید ارتباط درستی با پیش نمایش قالب گرفته و تصمیم مناسبی بگیرید. این صفحات معمولا برای اطلاعات کلی در مورد سایت مثل «درباره ما»، «تماس با ما»، «فهرست» یا «نظرات شما» مفید هستند.</p>
+                                                                                                        <p>{{ c.replay }}</p>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+{% endif %}
                                                                                 <!-- /Comment Reply -->
                                                                             </div>
                                                                             {% endfor %}
@@ -259,32 +254,33 @@
 
                                                             <!-- Send Comment Form -->
                                                             <div class="comments-container">
+                                                                {% if new_c == 'ok' %}
+                                                                    <h2>سپاس از درج دیدگاه</h2>
+                                                                {% endif %}
+
                                                                 <div class="row pt-4">
-                                                                    <div class="col-12"><h2>دیدگاه خود را ارسال کنید</h2></div>
+                                                                    <div class="col-12"><h2> دیدگاه خود را ارسال کنید</h2></div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-12 py-3">
-                                                                        <form method="post" action="/">
+                                                                        <form method="post">
                                                                             {% csrf_token %}
                                                                             <div id="send-comment-form">
                                                                                 <p>نظر خود را برای این مطلب ارسال کنید. نشانی ایمیل شما منتشر نخواهد شد.</p>
                                                                                 <div class="row">
                                                                                     <div class="col-12 px-3 pl-md-1 col-md-6">
                                                                                         <div class="form-group my-1">
-                                                                                            {{ comment_form.author }}
-{#                                                                                            <input type="text" class="form-control" placeholder="* نام شما" required oninvalid="this.setCustomValidity('لطفا نام خود را وارد کنید')" oninput="setCustomValidity('')">#}
+                                                                                            <input type="text" class="form-control" placeholder="* نام شما" name="name" required oninvalid="this.setCustomValidity('لطفا نام خود را وارد کنید')" oninput="setCustomValidity('')">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-12 px-3 pr-md-1 col-md-6">
                                                                                         <div class="form-group my-1">
-                                                                                            {{ comment_form.email }}
-{#                                                                                            <input type="email" class="form-control text-start" placeholder="پست الکترونیک *" required oninvalid="this.setCustomValidity('لطفا پست الکترونیک خود را وارد کنید')" oninput="setCustomValidity('')">#}
+                                                                                            <input type="email" class="form-control text-start" placeholder="پست الکترونیک *" name="email" required oninvalid="this.setCustomValidity('لطفا پست الکترونیک خود را وارد کنید')" oninput="setCustomValidity('')">
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-12">
                                                                                         <div class="form-group my-1">
-                                                                                            {{ comment_form.text }}
-{#                                                                                            <textarea class="form-control" id="" rows="4" placeholder="متن دیدگاه"></textarea>#}
+                                                                                            <textarea class="form-control" id="" rows="4" placeholder="متن دیدگاه" name="text"></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-12">
