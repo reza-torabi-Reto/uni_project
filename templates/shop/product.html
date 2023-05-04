@@ -1,5 +1,6 @@
 {%  extends 'shop/base.html' %}
 {% load static %}
+{% load ratings %}
 {% block main %}
 <section class="inner-page" id="product-page">
     <div class="container-fluid" id="page-hero">
@@ -92,11 +93,7 @@
                                 <h1>{{ product.name }}</h1>
                             </a>
                             <div class="stars-container">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                {% ratings product %}
                                 <a href="#tabs-panel"><span>(نقد و بررسی)</span></a>
                             </div>
                             <div class="price-container py-2">

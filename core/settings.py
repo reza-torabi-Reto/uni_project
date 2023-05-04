@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
-
+    'star_ratings',
 
 ]
 
@@ -131,3 +131,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# star-ratings
+STAR_RATINGS_STAR_HEIGHT = 16
+STAR_RATINGS_ANONYMOUS = True
+# STAR_RATINGS_RERATE = False

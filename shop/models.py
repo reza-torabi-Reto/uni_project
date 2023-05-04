@@ -2,7 +2,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from extensions.utils import jalali_canvert
-
+from django.contrib.contenttypes.fields import GenericRelation
+from star_ratings.models import Rating
 import uuid
 import os
 
@@ -50,19 +51,42 @@ class Product(models.Model):
     publish = models.DateTimeField(default=timezone.now, verbose_name='تاریخ نمایش')
     created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     updated = models.DateTimeField(auto_now=True, verbose_name='تاریخ ویرایش')
+    visits = models.PositiveIntegerField(default=0)
+    ratings = GenericRelation(Rating, related_query_name='foos')
 
     class Meta:
-        ordering = ['-price']
+        ordering = ['-created']
         verbose_name = 'کالا'
         verbose_name_plural = 'کالاها'
 
     def __str__(self):
-        return f'{self.category} - {self.name}'
+        return f'{self.id} {self.slug} {self.price}'
 
     def jCreated(self):
         return jalali_canvert(self.created)
     jCreated.short_description = 'تاریخ ایجاد'
 
+    def visit(self, request):
+        ip_address = request.META.get('REMOTE_ADDR')
+        if not Visit.objects.filter(product=self, ip_address=ip_address).exists():
+            Visit.objects.create(product=self, ip_address=ip_address)
+            self.visits += 1
+            self.save()
+
+#
+class Visit(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='نام محصول')
+    ip_address = models.CharField(max_length=255, verbose_name='آی پی آدرس بازدید کننده')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('product', 'ip_address')
+        verbose_name = 'بازدید'
+        verbose_name_plural = 'بازدیدها'
+
+    def jCreated_at(self):
+        return jalali_canvert(self.created_at)
+    jCreated_at.short_description = 'تاریخ بازید'
 
 #Images of Product
 class PhotoProduct(models.Model):

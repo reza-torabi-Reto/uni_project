@@ -6,11 +6,23 @@ todo add comments for product:
 [+] add replay cmnts
 [+] action for active new-camment
 [+] convert date-m to date-shamsi
-[] fixed message new-comment
-todo create index page
+[+] create rate-star for product > [] read-only for list product
 
+[+] show most visited
+[+] show most stars
+[+] show latest products
 
+[] create basket buy
+[] create process buy
+[] create discunt
+[] create search products
 
+[] Show discounts
+[] Show the best sellers
+
+[] create recommender
+[] create two language
+[] create app blog
 
 
 bugs:

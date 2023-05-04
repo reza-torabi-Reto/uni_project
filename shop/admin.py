@@ -32,9 +32,10 @@ class FeatureProductAdmin(admin.StackedInline):
 
 
 class ProductAdmin(admin.ModelAdmin):
-    fields = ['category','name', 'slug', 'status', 'price', 'description', 'review', 'thumbnail']
-    list_display = ['name', 'slug',]
+    fields = ['category','name', 'slug', 'visits','status', 'price', 'jCreated', 'description', 'review', 'thumbnail']
+    list_display = ['name', 'slug', 'jCreated']
     save_on_top = True
+    readonly_fields= ['visits']
     list_per_page = 10
     inlines = [ProductImageAdmin, FeatureProductAdmin,]
 
@@ -46,6 +47,16 @@ class ReviewAdmin(admin.ModelAdmin):
     actions = [publish, hide]
 
 
+
+class VisitAdmin(admin.ModelAdmin):
+    fields = [ 'ip_address','product', 'jCreated_at']
+    list_display = ['ip_address','product',  'jCreated_at']
+    # readonly_fields = ['created',  'product' , 'name']
+    actions = [publish, hide]
+
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Review, ReviewAdmin)
+admin.site.register(Visit, VisitAdmin)

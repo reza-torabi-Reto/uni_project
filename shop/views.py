@@ -6,17 +6,25 @@ from .forms import CommentForm
 
 
 from .models import *
+from star_ratings.models import Rating
+from django.db.models import Avg
 
 
 def index(request):
-    return render(request, 'shop/index.html')
+    most_visited_products = Product.objects.filter(status='p').order_by('-visits')[:5]
+    top_rated_products = Product.objects.annotate(avg_rating=Avg('ratings__average')).order_by('-ratings__average')[:5]
+    lasted_products = Product.objects.filter(status='p').order_by('-created')[:5]
+    context = {
+        'most_visited_products': most_visited_products,
+        'top_rated_products': top_rated_products,
+        'lasted_products': lasted_products,
+    }
+    return render(request, 'shop/index.html', context= context)
 
 def products(request, slug):
     products = Product.objects.filter(Q(category=get_object_or_404(Category.objects.only('slug'), slug=slug).id))\
         .only('slug', 'name', 'price', 'thumbnail', )
     cate= get_object_or_404(Category.objects.only('title'), Q(slug=slug))
-    print(f'cate== {cate.title}')
-    print(f'cate== {cate.parent}')
     context = {
         'cate': cate,
         'products': products,
@@ -41,17 +49,13 @@ def products_category(request, slug): # mobile
 def products_list(request):
     return render(request, 'shop/products-list.html')
 
-# def product(request, slug):
-#     context = {
-#             'product': get_object_or_404(Product, Q(slug=slug) & ~Q(status='h') & ~Q(category__status='h'))
-#         }
-#     return render(request, "shop/product.html", context)
-
 
 # add comment
 def product(request, slug):
     product = get_object_or_404(Product, Q(slug=slug) & ~Q(status='h') & ~Q(category__status='h'))
-    comments = Review.objects.filter(approved_comment=True).order_by('-created')
+    product.visit(request)
+    comments = Review.objects.filter(approved_comment=True, product__slug= slug).order_by('-created')
+
     new_c = None
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -71,3 +75,8 @@ def product(request, slug):
                                                      'new_c': None,
                                                      'comments': comments,
                                                      'comment_form': comment_form})
+
+    # کد درسافت بیشترین بازدید
+    # most_visited_products = Product.objects.annotate(
+    #     num_visits=models.Count('visit', distinct=True)
+    # ).order_by('-num_visits')[:10]
