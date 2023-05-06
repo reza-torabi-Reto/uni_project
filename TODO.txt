@@ -12,7 +12,8 @@ todo add comments for product:
 [+] show most stars
 [+] show latest products
 
-[*] create basket buy > create template basket list to 261 page book
+[+] create basket buy > create template basket list to 261 page book
+[+] done send email order by consol #1.>>pip install celery 2.>>celery -A myshop worker -l info (cmd in directory project)
 [] create process buy
 [] create discunt
 [] create search products
