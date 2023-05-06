@@ -5,7 +5,8 @@
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>قالب فروشگاهی روبیک مارکت</title>
     <!-- CSS Styles -->
@@ -69,9 +70,23 @@
                             <a href="./register.html">عضویت</a>
                         </div>
                         <div class="col-12 col-md-5 col-lg-6">
-                            <a href="./cart.html">
-                                <div class="btn btn-warning w-100"><i class="fa fa-shopping-cart"></i>&nbsp;<span class="d-md-none d-lg-inline-block">سبد خرید</span> (2)</div>
-                            </a>
+                            {% with total_items=cart|length %}
+                                {% if total_items > 0 %}
+                                    <a href="{% url "cart:cart_detail" %}">
+                                        <div class="btn btn-warning w-100">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            <span class="d-md-none d-lg-inline-block">سبد خرید</span>
+                                           ({{ total_items }})
+                                        </div>
+                                    </a>
+                                {% else %}
+                                    <div class="btn btn-warning w-100">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            <span class="d-md-none d-lg-inline-block">سبد خرید</span>
+                                           (0)
+                                    </div>
+                                {% endif %}
+                            {% endwith %}
                         </div>
                     </div>
                 </div>
@@ -96,7 +111,9 @@
                                     <div class="droopmenu-navi">
                                         <ul class="droopmenu">
                                             <li class="droopmenu-parent" aria-haspopup="true">
-                                                <a href="#" aria-expanded="false"><i class="fa fa-bars"></i>&nbsp;&nbsp;گروه های محصولات</a><div class="dm-arrow"></div>
+                                                <a href="#" aria-expanded="false"><i class="fa fa-bars"></i>&nbsp;&nbsp;گروه
+                                                    های محصولات</a>
+                                                <div class="dm-arrow"></div>
                                                 {% category_menu %}
                                             </li>
                                             <li>
@@ -183,7 +200,9 @@
             <div class="col-12 col-md-12 col-lg-6">
                 <hr class="d-lg-none">
                 <img src="assets/images/logo.png" alt=""> روبیک مارکت
-                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
+                <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها
+                    و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و
+                    کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد.</p>
                 <div class="row">
                     <div class="col-12 col-md-6 text-center p-2" id="support-info">
                         <div>7 روز هفته، 24 ساعت شبانه روز</div>

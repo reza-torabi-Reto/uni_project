@@ -12,7 +12,7 @@ todo add comments for product:
 [+] show most stars
 [+] show latest products
 
-[] create basket buy
+[*] create basket buy > create template basket list to 261 page book
 [] create process buy
 [] create discunt
 [] create search products
@@ -20,6 +20,7 @@ todo add comments for product:
 [] Show discounts
 [] Show the best sellers
 
+[] create search filter for products
 [] create recommender
 [] create two language
 [] create app blog

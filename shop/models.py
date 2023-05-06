@@ -59,6 +59,9 @@ class Product(models.Model):
         verbose_name = 'کالا'
         verbose_name_plural = 'کالاها'
 
+    def get_absolute_url(self):
+        return reverse('shop:product', args=[self.slug])
+
     def __str__(self):
         return f'{self.id} {self.slug} {self.price}'
 

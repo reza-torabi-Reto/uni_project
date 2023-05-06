@@ -1,11 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import Q
-
 from django.utils import timezone
 from .forms import CommentForm
-
-
 from .models import *
+from cart.forms import CartAddProductForm
 from star_ratings.models import Rating
 from django.db.models import Avg
 
@@ -55,7 +53,7 @@ def product(request, slug):
     product = get_object_or_404(Product, Q(slug=slug) & ~Q(status='h') & ~Q(category__status='h'))
     product.visit(request)
     comments = Review.objects.filter(approved_comment=True, product__slug= slug).order_by('-created')
-
+    cart_product_form = CartAddProductForm()
     new_c = None
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
@@ -68,13 +66,15 @@ def product(request, slug):
             return render(request, "shop/product.html", {'product': product,
                                                          'comments': comments,
                                                          'new_c': new_c,
-                                                         'comment_form': comment_form})
+                                                         'comment_form': comment_form,
+                                                         'cart_product_form': cart_product_form})
     else:
         comment_form = CommentForm()
         return render(request, "shop/product.html", {'product': product,
                                                      'new_c': None,
                                                      'comments': comments,
-                                                     'comment_form': comment_form})
+                                                     'comment_form': comment_form,
+                                                     'cart_product_form': cart_product_form})
 
     # کد درسافت بیشترین بازدید
     # most_visited_products = Product.objects.annotate(

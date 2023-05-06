@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
     'star_ratings',
+    'cart.apps.CartConfig',
+    'orders.apps.OrdersConfig',
 
 ]
 
@@ -65,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -135,3 +138,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STAR_RATINGS_STAR_HEIGHT = 16
 STAR_RATINGS_ANONYMOUS = True
 # STAR_RATINGS_RERATE = False
+
+CART_SESSION_ID = 'cart'
