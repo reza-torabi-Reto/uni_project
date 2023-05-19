@@ -51,6 +51,7 @@ def products_list(request):
 # add comment
 def product(request, slug):
     product = get_object_or_404(Product, Q(slug=slug) & ~Q(status='h') & ~Q(category__status='h'))
+    print(f'prodict->> {product.price}')
     product.visit(request)
     comments = Review.objects.filter(approved_comment=True, product__slug= slug).order_by('-created')
     cart_product_form = CartAddProductForm()

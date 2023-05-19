@@ -43,7 +43,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255, verbose_name="نام")
     description = models.TextField(blank=True, max_length=600, verbose_name='توضیحات')
     review = models.TextField(blank=True, max_length=600, verbose_name='نقد و بررسی')
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.IntegerField(verbose_name='قیمت')
     thumbnail = models.ImageField(upload_to='images/products/thumbnails/',)
     # images = models.ManyToManyField('Image', blank=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE, related_name='products',

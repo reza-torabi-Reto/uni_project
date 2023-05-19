@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'star_ratings',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 
 ]
 
@@ -141,3 +142,18 @@ STAR_RATINGS_ANONYMOUS = True
 
 CART_SESSION_ID = 'cart'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Braintree settings
+BRAINTREE_MERCHANT_ID = '6b6mw3hzhjy7wdvh' #'p8cg4mr8zmrbt4zz'  # Merchant ID
+BRAINTREE_PUBLIC_KEY = 'g7rvksmsn2tb97f6'   #'xdpd75qnvgvhcxv7'  # Public Key
+BRAINTREE_PRIVATE_KEY = '72a04f8704c4ceba53c10a418db1804a' #'187e7ef67b2e0d423b12e5bbfe27232c'  # Private key
+
+import braintree
+
+BRAINTREE_CONF = braintree.Configuration(
+    braintree.Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
+braintree.Configuration()

@@ -14,16 +14,18 @@ todo add comments for product:
 
 [+] create basket buy > create template basket list to 261 page book
 [+] done send email order by consol #1.>>pip install celery 2.>>celery -A myshop worker -l info (cmd in directory project)
-[] create process buy
+[+] create process buy
+[] export to pdf
 [] create discunt
-[] create search products
-
 [] Show discounts
 [] Show the best sellers
 
-[] create search filter for products
 [] create recommender
 [] create two language
+
+[] create search products
+[] create search filter for products
+
 [] create app blog
 
 
@@ -37,4 +39,12 @@ notes
 ## سناریو برای بخش دیدگاه ها##
 بازدیدکننده نظر میزاره،ادمین تایید میکنه و نمایش داده میشه.ادمین میتواند پاسخ بدهد.
 
-##
+##for not worker rabbitmq:
+>>sudo lsof -i :25672
+>>sudo kill <PID>
+>>sudo rabbitmq-server
+
+#run celery:
+>>celery -A core worker -l info --pool=solo
+
+
