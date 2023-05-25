@@ -10,6 +10,12 @@ from django.utils.safestring import mark_safe
 def order_detail(obj):
     url = reverse('orders:admin_order_detail', args=[obj.id])
     return mark_safe(f'<a href="{url}">نمایش</a>')
+order_detail.short_description = '-'
+
+def order_pdf(obj):
+    url = reverse('orders:admin_order_pdf', args=[obj.id])
+    return mark_safe(f'<a href="{url}">PDF</a>')
+order_pdf.short_description = '-'
 
 
 def export_to_csv(modeladmin, request, queryset):
@@ -39,7 +45,8 @@ class OrderItemInline(admin.TabularInline):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'first_name', 'last_name', 'email','address', 'postal_code', 'city', 'paid','created', 'updated', order_detail]
+    list_display = ['id', 'first_name', 'last_name', 'email', 'city', 'paid','created',
+                     order_detail, order_pdf]
     list_filter = ['paid', 'created', 'updated']
     inlines = [OrderItemInline]
     actions=[export_to_csv]

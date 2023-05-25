@@ -44,30 +44,37 @@
 
                                                         <div class="form-group mb-3">
                                                             <label for="name">نام :</label>
-                                                            <input type="text" name="first_name" maxlength="50" required="" id="id_first_name" class="form-control">
+                                                            <input type="text" name="first_name" maxlength="50"
+                                                                   required="" id="id_first_name" class="form-control">
                                                         </div>
                                                         <div class="form-group mb-3">
                                                             <label for="name">نام خانوادگی :</label>
-                                                            <input type="text" name="last_name" maxlength="50" required="" id="id_last_name" class="form-control">
+                                                            <input type="text" name="last_name" maxlength="50"
+                                                                   required="" id="id_last_name" class="form-control">
                                                         </div>
                                                         <div class="form-group mb-3">
                                                             <label for="name">رایانامه :</label>
-                                                            <input type="email" name="email" maxlength="254" required="" id="id_email" class="form-control">
+                                                            <input type="email" name="email" maxlength="254" required=""
+                                                                   id="id_email" class="form-control">
                                                         </div>
                                                         <div class="form-group mb-3">
                                                             <label for="name">نشانی :</label>
-                                                            <input type="text" name="address" maxlength="250" required="" id="id_address" class="form-control">
+                                                            <input type="text" name="address" maxlength="250"
+                                                                   required="" id="id_address" class="form-control">
                                                         </div>
                                                         <div class="form-group mb-3">
                                                             <label for="name">کد پستی :</label>
-                                                            <input type="text" name="postal_code" maxlength="20" required="" id="id_postal_code" class="form-control">
+                                                            <input type="text" name="postal_code" maxlength="20"
+                                                                   required="" id="id_postal_code" class="form-control">
                                                         </div>
                                                         <div class="form-group mb-3">
                                                             <label for="name">شهر :</label>
-                                                            <input type="text" name="city" maxlength="100" required="" id="id_city"  class="form-control">
+                                                            <input type="text" name="city" maxlength="100" required=""
+                                                                   id="id_city" class="form-control">
                                                         </div>
                                                         <div class="form-group mb-3">
-                                                            <input type="submit" value="پرداخت و تکمیل خرید" class="btn btn-success px-4 py-2" >
+                                                            <input type="submit" value="پرداخت و تکمیل خرید"
+                                                                   class="btn btn-success px-4 py-2">
                                                         </div>
                                                     </form>
                                                 </div>
@@ -89,7 +96,8 @@
                                                         <span class="col-6 col-sm-4 col-lg-3 px-0">
                                                                   <div class="product-box">
                                                                         <div class="text-center px-1 px-sm-3">
-                                                                            <a href="{{ product.get_absolute_url }}" target="_blank">
+                                                                            <a href="{{ product.get_absolute_url }}"
+                                                                               target="_blank">
                                                                                 <h2 style="color: #3972fa ;display: flex; align-items: center; justify-content: center; font-size: 16px">{{ item.product.name }}</h2>
                                                                             </a>
                                                                             <div style="text-align: right; font-size: 14px; color: #4a5361">تعداد:{{ item.quantity }} عدد</div>
@@ -119,15 +127,36 @@
                                                 <div>جمع کل فاکتور:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div>{{ cart.get_total_price }} تومان</div>
+                                                <div><span id="factor-total-price">{{ cart.get_total_price }}</span>
+                                                    تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2 bg-light">
                                             <div class="col-6">
                                                 <div>جمع تخفیف:</div>
                                             </div>
+                                            {% if cart.coupon %}
+                                                <div class="col-6">
+                                                    <div><span id="factor-total-discount">{{ cart.get_discount }}</span>
+                                                        تومان
+                                                    </div>
+                                                </div>
+                                            {% else %}
+                                                <div class="col-6">
+                                                    <div><span id="factor-total-discount">00</span> تومان</div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="row py-2" id="total">
                                             <div class="col-6">
-                                                <div>200.000 تومان</div>
+                                                <div>مبلغ قابل پرداخت:</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div><span
+                                                        id="factor-total">{{ cart.get_total_price_after_discount }}</span>
+                                                    تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2">
@@ -136,14 +165,6 @@
                                             </div>
                                             <div class="col-6">
                                                 <div class="small">درب منزل با مشتری</div>
-                                            </div>
-                                        </div>
-                                        <div class="row py-2" id="total">
-                                            <div class="col-6">
-                                                <div>مبلغ قابل پرداخت:</div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div>3.000.000 تومان</div>
                                             </div>
                                         </div>
                                     </div>

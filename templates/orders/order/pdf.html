@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>خروجی پی دی اف</title>
+    <style>
+        .txt_right{ text-align: right}
+        .td{
+            min-width: 80px; padding: 5px; margin: auto 5px;
+        }
+        .dv{
+            padding: 5px 10px;
+            width: 80px;
+            text-align: center;
+        }
+        .red{
+            border: 1px solid red;
+            color: red;
+        }
+        .green{
+            border: 1px solid green;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+<h1 class="txt_right">فروشگاه</h1>
+<div class="txt_right mx-1">{{ order.id }}<span class="ml-2">شماره سفارش:</span></div>
+<div class="txt_right mx-1">{{ order.created|date:"M d, Y" }}<span class="ml-2">تاریخ ثبت سفارش:</span></div>
+<h3 class="txt_right">اطلاعات مشتری</h3>
+<p class="txt_right">
+    <div class="txt_right mx-1">{{ order.first_name }} {{ order.last_name }}<span class="ml-2">نام:</span></div>
+    <div class="txt_right mx-1">{{ order.email }}<span class="ml-2">رایانامه:</span></div>
+    <div class="txt_right mx-1">{{ order.city }}<span class="ml-2">شهر:</span></div>
+    <div class="txt_right mx-1">{{ order.address }}<span class="ml-2">نشانی:</span></div>
+    <div class="txt_right mx-1">{{ order.postal_code }}<span class="ml-2">کدپستی:</span></div>
+</p>
+<h3 class="txt_right">کالاهای خریداری شده</h3>
+
+
+<table style="direction: rtl; margin-left: auto">
+    <thead class="txt_right">
+    <tr class="txt_right">
+        <th class="td">کالا</th>
+        <th class="td">قیمت</th>
+        <th class="td">تعداد</th>
+        <th class="td">جمع</th>
+    </tr>
+    </thead>
+    <tbody class="txt_right">
+    {% for item in order.items.all %}
+        <tr class="row txt_right">
+            <td class="td">{{ item.product.name }}</td>
+            <td class="num td">${{ item.price }}</td>
+            <td class="num td">{{ item.quantity }}</td>
+            <td class="num td">${{ item.get_cost }}</td>
+        </tr>
+    {% endfor %}
+    <tr class="total">
+        <td colspan="3">جمع</td>
+        <td class="num">${{ order.get_total_cost }}</td>
+    </tr>
+    </tbody>
+</table>
+<div class="dv {% if order.paid %}green{% else %}red{% endif %}">
+{% if order.paid %}پرداخت شده{% else %}پرداخت نشده{% endif %}
+</div>
+</body>
+</html>

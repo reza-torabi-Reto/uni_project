@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'coupons.apps.CouponsConfig',
 
 ]
 
@@ -142,6 +143,11 @@ STAR_RATINGS_ANONYMOUS = True
 
 CART_SESSION_ID = 'cart'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CELERY_IMPORTS = [
+    'orders.tasks',
+    'payment.tasks',
+]
 
 # Braintree settings
 BRAINTREE_MERCHANT_ID = '6b6mw3hzhjy7wdvh' #'p8cg4mr8zmrbt4zz'  # Merchant ID

@@ -38,7 +38,8 @@
                                         <div class="row">
                                             <div class="col-12 py-3">
                                                 <div class="pb-3" id="return-to-shop">می‌خواهید محصولات دیگری اضافه
-                                                    کنید؟ <a href="{% url "shop:index" %}" class="button light">بازگشت به فروشگاه</a></div>
+                                                    کنید؟ <a href="{% url "shop:index" %}" class="button light">بازگشت
+                                                        به فروشگاه</a></div>
                                                 <div class="d-none d-md-block">
                                                     <div class="row my-2" id="heading">
                                                         <div class="col-4">
@@ -65,10 +66,13 @@
                                                             <div class="col-12 col-md-4">
                                                                 <div class="row">
                                                                     <div class="col-2 col-md-4 pl-0">
-                                                                        <img src="{% if product.thumbnail %}{{ product.thumbnail.url }} {% else %}{% static "img/no_image.png" %}{% endif %}">
+                                                                        <img src="
+
+                                                                                {% if product.thumbnail %}{{ product.thumbnail.url }} {% else %}{% static "img/no_image.png" %}{% endif %}">
                                                                     </div>
                                                                     <div class="col-10 col-md-8">
-                                                                        <a href="{{ product.get_absolute_url }}" target="_blank">
+                                                                        <a href="{{ product.get_absolute_url }}"
+                                                                           target="_blank">
                                                                             <div class="title pt-2">{{ product.name }}</div>
                                                                         </a>
                                                                     </div>
@@ -84,10 +88,12 @@
                                                                 <div class="d-md-none font-weight-bold">تعداد</div>
                                                                 <div class="input-group mb-3 order-number">
 
-                                                                    <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                                                    <form action="{% url "cart:cart_add" product.id %}"
+                                                                          method="post">
                                                                         {{ item.update_quantity_form.quantity }}
                                                                         {{ item.update_quantity_form.override }}
-                                                                        <input type="submit" value="ثبت تعداد" style="font-size:12px;padding:2px 7px;border: none;background-color: blue;color: white;border-radius: 3px;">
+                                                                        <input type="submit" value="ثبت تعداد"
+                                                                               style="font-size:12px;padding:2px 7px;border: none;background-color: blue;color: white;border-radius: 3px;">
                                                                         {% csrf_token %}
                                                                     </form>
                                                                 </div>
@@ -100,11 +106,13 @@
                                                             <div class="col-6 col-md-2 pr-0">
                                                                 <div class="d-md-none font-weight-bold">قیمت نهایی</div>
                                                                 <div class="pt-1 pr-2 bg-light"><span
-                                                                        class="product-total">{{ item.total_price }}</span> <span>تومان</span>
+                                                                        class="product-total">{{ item.total_price }}</span>
+                                                                    <span>تومان</span>
                                                                 </div>
                                                                 <form action="{% url "cart:cart_remove" product.id %}"
                                                                       method="post">
-                                                                    <input type="submit" value="حذف" style="font-size:12px;padding:2px 7px;border: none;background-color: red;color: white;border-radius: 3px;">
+                                                                    <input type="submit" value="حذف"
+                                                                           style="font-size:12px;padding:2px 7px;border: none;background-color: red;color: white;border-radius: 3px;">
                                                                     {% csrf_token %}
                                                                 </form>
                                                             </div>
@@ -137,15 +145,30 @@
                                                 <div>جمع کل فاکتور:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total-price">{{ cart.get_total_price }}</span> تومان</div>
+                                                <div><span id="factor-total-price">{{ cart.get_total_price }}</span>
+                                                    تومان
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row py-2 bg-light">
                                             <div class="col-6">
                                                 <div>جمع تخفیف:</div>
                                             </div>
+                                            {% if cart.coupon %}
                                             <div class="col-6">
-                                                <div><span id="factor-total-discount">200.000</span> تومان</div>
+                                                <div><span id="factor-total-discount">{{ cart.get_discount }}</span> تومان</div>
+                                            </div>
+                                            {% else %}
+                                            <div class="col-6">
+                                                <div><span id="factor-total-discount">00</span> تومان</div>
+                                            </div>
+                                            {% endif %}
+                                            <div class="col">
+                                                <form action="{% url "coupons:apply" %}" method="post" class="mt-2">
+                                                    <input type="text" name="code" required="" id="id_code" placeholder="کد تخفیف">
+                                                    <input type="submit" value="ثبت" class="my-2">
+                                                    {% csrf_token %}
+                                                </form>
                                             </div>
                                         </div>
                                         <div class="row py-2" id="total">
@@ -153,13 +176,13 @@
                                                 <div>مبلغ قابل پرداخت:</div>
                                             </div>
                                             <div class="col-6">
-                                                <div><span id="factor-total">3.000.000</span> تومان</div>
+                                                <div><span id="factor-total">{{ cart.get_total_price_after_discount}}</span> تومان</div>
                                             </div>
                                         </div>
                                         <div class="row py-2">
                                             <div class="col-12">
-                                                <a href="{% url "orders:order_create" %}"><input type="submit" value="ادامه ثبت سفارش"
-                                                                                 class="btn btn-success w-100"></a>
+                                                <a href="{% url "orders:order_create" %}">
+                                                    <input type="submit" value="ادامه ثبت سفارش" class="btn btn-success w-100"></a>
                                             </div>
                                         </div>
                                     </div>

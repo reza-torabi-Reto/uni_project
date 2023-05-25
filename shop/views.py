@@ -6,16 +6,20 @@ from .models import *
 from cart.forms import CartAddProductForm
 from star_ratings.models import Rating
 from django.db.models import Avg
-
+from django.db.models import Sum
 
 def index(request):
     most_visited_products = Product.objects.filter(status='p').order_by('-visits')[:5]
     top_rated_products = Product.objects.annotate(avg_rating=Avg('ratings__average')).order_by('-ratings__average')[:5]
     lasted_products = Product.objects.filter(status='p').order_by('-created')[:5]
+        # Get the top 10 best-selling products
+    best_selling_products = Product.objects.annotate(total_sales=Sum('order_items__quantity')).order_by('-total_sales')[:5]
+
     context = {
         'most_visited_products': most_visited_products,
         'top_rated_products': top_rated_products,
         'lasted_products': lasted_products,
+        'best_selling_products': best_selling_products,
     }
     return render(request, 'shop/index.html', context= context)
 

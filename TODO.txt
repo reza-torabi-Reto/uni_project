@@ -15,30 +15,33 @@ todo add comments for product:
 [+] create basket buy > create template basket list to 261 page book
 [+] done send email order by consol #1.>>pip install celery 2.>>celery -A myshop worker -l info (cmd in directory project)
 [+] create process buy
-[] export to pdf
-[] create discunt
-[] Show discounts
-[] Show the best sellers
+[+] export to pdf
+[+] create discunt-copoun
+[+] Show discounts-copoun
+[+] Show the best sellers
 
 [] create recommender
 [] create two language
+
+[] create-discunt
 
 [] create search products
 [] create search filter for products
 
 [] create app blog
 
-
+---------------------------
 bugs:
 باگهای فرانت اند بخش منو حل شود![]
 !باگ نمایش پیام برای دیدگاه جدید []
-
-
-
+بعد پرداخت به دان ریدایرکت نمیشه []
+دریافت ایمیل سفارش کالا []
+---------------------------
 notes
 ## سناریو برای بخش دیدگاه ها##
 بازدیدکننده نظر میزاره،ادمین تایید میکنه و نمایش داده میشه.ادمین میتواند پاسخ بدهد.
 
+-----------------------------
 ##for not worker rabbitmq:
 >>sudo lsof -i :25672
 >>sudo kill <PID>
@@ -46,5 +49,7 @@ notes
 
 #run celery:
 >>celery -A core worker -l info --pool=solo
+-------------------
 
-
+Install Packages:
+WeasyPrint
