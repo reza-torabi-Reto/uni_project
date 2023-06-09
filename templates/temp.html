@@ -1,0 +1,58 @@
+                                {% if list.qs %}
+                                    <div class="mt-2" id="pager">
+                                        <div class="container">
+                                            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gx-md-4">
+                                                <!-- Products -->
+
+                                                {% for p in list.qs %}
+                                                    <div class="col">
+                                                        <!-- Product Box -->
+                                                        <div class="product-box">
+                                                            <a href="{% url 'shop:product' p.slug %}">
+                                                                <div class="image"
+                                                                     style="background-image: url('{{ p.thumbnail.url }}')"></div>
+                                                            </a>
+                                                            <div class="details p-3">
+                                                                <div class="category">
+                                                                    <a href="{% url 'shop:products-category' p.category.parent.slug %}">{{ p.category.parent }}</a>
+                                                                    &nbsp;/&nbsp;
+                                                                    <a href="{% url 'shop:products' p.category.slug %}">{{ p.category.title }}</a>
+                                                                </div>
+                                                                <a href="{% url 'shop:product' p.slug %}">
+                                                                    <h2>{{ p.name }}</h2></a>
+                                                                <div class="price">{{ p.price }} تومان</div>
+                                                                <div class="rate">
+                                                                    {% ratings p %}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- /Product Box -->
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="d-flex justify-content-center pagination-sm box_pagination">
+                                                    <span class="step-links">
+                                                        {% if list.qs.has_previous %}
+                                                            <a href="?page=1" class="btn_page"><i class="fas fa-angle-double-right"></i></a>
+                                                            <a href="?page={{ list.qs.previous_page_number }}" class="btn_page"><i class="fas fa-angle-right"></i></a>
+                                                        {% endif %}
+                                                    </span>
+                                                    <span class="current_page">
+                                                         {{ list.qs.number }} / {{ list.qs.paginator.num_pages }}
+                                                    </span>
+                                                    <span>
+                                                        {% if list.qs.has_next %}
+                                                            <a href="?page={{ list.qs.next_page_number }}" class="btn_page"><i class="fas fa-angle-left"></i></a>
+                                                            <a href="?page={{ list.qs.paginator.num_pages }}" class="btn_page"><i class="fas fa-angle-double-left"></i></a>
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}

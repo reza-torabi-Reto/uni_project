@@ -1,288 +1,193 @@
-{%  extends 'shop/base.html' %}
+{% extends 'shop/base.html' %}
+{% load base_tags %}
 {% load static %}
+{% load ratings %}
 {% block main %}
-<section class="inner-page" id="products-page">
-    <div class="container-fluid" id="page-hero">
-        <div class="row">
-            <div class="col-12">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 px-0">
-                            <h1>فروشگاه روبیک مارکت</h1>
-                            <p>هر آنچه نیاز دارید در این فروشگاه موجود است</p>
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">{{ cate.title }}</li>
-                                </ol>
-                            </nav>
+    <section class="inner-page" id="products-page">
+        <div class="container-fluid" id="page-hero">
+            <div class="row">
+                <div class="col-12">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 px-0">
+                                <h1>فروشگاه روبیک مارکت</h1>
+                                <p>هر آنچه نیاز دارید در این فروشگاه موجود است</p>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{{ cate.title }}</li>
+                                    </ol>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="content">
-                    <div class="row">
-                        <div class="col-12 col-lg-3 px-3 px-lg-0">
-                            <!-- Side Panel -->
-                            <div class="accordion filters-container d-none">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingOne">
-                                        <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                            گروه های محصولات
-                                        </button>
-                                    </h2>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="form-group">
-                                                <input type="checkbox" id="category1">
-                                                <label for="category1">گوشی موبایل</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="checkbox" id="category2">
-                                                <label for="category2">جانبی موبایل</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="checkbox" id="category3">
-                                                <label for="category3">دوربین دیجیتال</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="checkbox" id="category4">
-                                                <label for="category4">ساعت هوشمند</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="checkbox" id="category5">
-                                                <label for="category5">لپ تاپ</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion filters-container mt-3">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingTwo">
-                                        <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                            محدوده قیمت
-                                        </button>
-                                    </h2>
-                                    <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="row">
-                                                <div class="col-12 py-1 px-4 mt-3">
-                                                    <div id="steps-slider" dir="rtl"></div>
-                                                </div>
-                                                <div class="col-6 text-center price-range mt-3">
-                                                    <div>از</div>
-                                                    <div id="price-range-from">10000</div>
-                                                    <div>تومان</div>
-                                                </div>
-                                                <div class="col-6 text-center price-range mt-3">
-                                                    <div>از</div>
-                                                    <div id="price-range-to">500000</div>
-                                                    <div>تومان</div>
-                                                </div>
-                                                <div class="col-12 text-center py-2">
-                                                    <div class="btn btn-warning">اعمال محدوده تخفیف</div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-12 col-lg-3 px-3 px-lg-0">
+                                <!-- Side Panel -->
+                                <div class="accordion filters-container mt-3">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button py-2 px-3" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                                    aria-expanded="true" aria-controls="collapseTwo">
+                                                محدوده قیمت
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse show"
+                                             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="row">
+                                                    <form method="get" class="frm_filter">
+                                                        <input type="text" name="min_price" id="id_price_0"
+                                                               style="width: 100px; margin: 5px;">-
+                                                        <input type="text" name="max_price" id="id_price_1"
+                                                               style="width: 100px; margin: 5px 0px;">
+                                                        <button type="submit"
+                                                                style="padding: 5px 10px;background: #fcb941;border: none;border-radius: 4px;box-shadow: 1px 2px #d4e4df;font-size: 13px;">
+                                                            فیلتر
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="accordion filters-container mt-3">
-                                <div class="accordion-item">
-                                    <div id="collapseThree" class="accordion-collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body pb-2">
-                                            <div class="form-group">
-                                                <input type="checkbox" id="only-available">
-                                                <label for="only-available">فقط کالاهای موجود</label>
+                                <div class="accordion filters-container mt-3">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingFive">
+                                            <button class="accordion-button py-2 px-3" type="button"
+                                                    data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                                                    aria-expanded="true" aria-controls="collapseFive">
+                                                جدیدترین محصولات
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFive" class="accordion-collapse collapse show"
+                                             aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <div class="row">
+                                                    <!-- Side Product -->
+                                                    {% new_products %}
+                                                    <!-- Side Product -->
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /Side Panel -->
                             </div>
-
-                            <div class="accordion filters-container mt-3">
-                                <div class="accordion-item">
-                                    <div id="collapseFour" class="accordion-collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body pb-2">
-                                            <div class="form-group">
-                                                <input type="checkbox" id="only-warranty">
-                                                <label for="only-warranty">فقط کالاهای دارای گارانتی</label>
+                            <div class="col-12 col-lg-9 px-0 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
+                                <!-- Filters -->
+                                <div id="order-filters">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-10 my-1">
+                                                <span class="d-block d-sm-inline-block">مرتب سازی بر اساس:</span>
+                                                <a href="?sort=price_asc"><span
+                                                        class="order-filter d-block d-sm-inline-block active">ارزانترین</span></a>
+                                                <a href="?sort=price_desc"><span
+                                                        class="order-filter d-block d-sm-inline-block">گرانترین</span></a>
+                                                <a href="?sort=visits"><span
+                                                        class="order-filter d-block d-sm-inline-block">پربازدیدترین</span></a>
+                                                <a href="?sort=sales"><span
+                                                        class="order-filter d-block d-sm-inline-block">پرفروشترین</span></a>
+                                                <a href="?sort=stars"><span
+                                                        class="order-filter d-block d-sm-inline-block">محبوبترین</span></a>
+                                            </div>
+                                            <div class="col-12 col-sm-2 pt-1 text-end">
+                                            <span>
+                                                <a href="products-list.html" class="products-view-type"><i
+                                                        class="fa fa-th-list"></i></a>
+                                                <a href="products.html" class="products-view-type active"><i
+                                                        class="fa fa-th"></i></a>
+                                            </span>
+                                                &nbsp;|&nbsp;
+                                                <span>{{ list|length }} کالا</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="accordion filters-container mt-3">
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingFive">
-                                        <button class="accordion-button py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
-                                            جدیدترین محصولات
-                                        </button>
-                                    </h2>
-                                    <div id="collapseFive" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="row">
-                                                <!-- Side Product -->
-                                                <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
-                                                    <a href="./product.html">
-                                                        <div class="side-product">
-                                                            <div class="row pl-3">
-                                                                <div class="col-3 pl-2">
-                                                                    <div class="image" style="background-image: url('assets/images/products/p100.png')"></div>
-                                                                </div>
-                                                                <div class="col-9 pr-0">
-                                                                    <h2>گوشی موبایل سامسونگ مدل Galaxy A51</h2>
-                                                                    <div class="row">
-                                                                        <div class="col-7 pl-0">
-                                                                            <span class="price">320.000 تومان</span>
-                                                                        </div>
-                                                                        <div class="col-5 pr-0 text-end">
-                                                                            <span class="views">321 بازدید</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
+                                <!-- /Filters -->
+                                <div class="mt-2" id="pager">
+                                    <div class="container">
+                                        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gx-md-4">
+                                            <!-- Products -->
+                                            {% for p in list %}
+                                                <div class="col">
+                                                    <!-- Product Box -->
+                                                    <div class="product-box">
+                                                        <a href="{% url 'shop:product' p.slug %}">
+                                                            <div class="image"
+                                                                 style="background-image: url('{{ p.thumbnail.url }}')"></div>
+                                                        </a>
+                                                        <div class="details p-3">
+                                                            <div class="category">
+                                                                <a href="{% url 'shop:products-category' p.category.parent.slug %}">{{ p.category.parent }}</a>
+                                                                &nbsp;/&nbsp;
+                                                                <a href="{% url 'shop:products' p.category.slug %}">{{ p.category.title }}</a>
+                                                            </div>
+                                                            <a href="{% url 'shop:product' p.slug %}">
+                                                                <h2>{{ p.name }}</h2></a>
+                                                            <div class="price">{{ p.price }} تومان</div>
+                                                            <div class="rate">
+                                                                {% ratings p %}
                                                             </div>
                                                         </div>
-                                                    </a>
+                                                    </div>
+                                                    <!-- /Product Box -->
                                                 </div>
-                                                <!-- Side Product -->
-                                                <!-- Side Product -->
-                                                <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
-                                                    <a href="./product.html">
-                                                        <div class="side-product">
-                                                            <div class="row pl-3">
-                                                                <div class="col-3 pl-2">
-                                                                    <div class="image" style="background-image: url('assets/images/products/p100.png')"></div>
-                                                                </div>
-                                                                <div class="col-9 pr-0">
-                                                                    <h2>گوشی موبایل سامسونگ مدل Galaxy A51</h2>
-                                                                    <div class="row">
-                                                                        <div class="col-7 pl-0">
-                                                                            <span class="price">320.000 تومان</span>
-                                                                        </div>
-                                                                        <div class="col-5 pr-0 text-end">
-                                                                            <span class="views">321 بازدید</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- Side Product -->
-                                                <!-- Side Product -->
-                                                <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
-                                                    <a href="./product.html">
-                                                        <div class="side-product">
-                                                            <div class="row pl-3">
-                                                                <div class="col-3 pl-2">
-                                                                    <div class="image" style="background-image: url('assets/images/products/p100.png')"></div>
-                                                                </div>
-                                                                <div class="col-9 pr-0">
-                                                                    <h2>گوشی موبایل سامسونگ مدل Galaxy A51</h2>
-                                                                    <div class="row">
-                                                                        <div class="col-7 pl-0">
-                                                                            <span class="price">320.000 تومان</span>
-                                                                        </div>
-                                                                        <div class="col-5 pr-0 text-end">
-                                                                            <span class="views">321 بازدید</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                </div>
-                                                <!-- Side Product -->
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- /Side Panel -->
-                        </div>
-                        <div class="col-12 col-lg-9 px-0 pl-lg-0 pr-lg-2 mt-2 mt-lg-0">
-                            <!-- Filters -->
-                            <div id="order-filters">
                                 <div class="container">
                                     <div class="row">
-                                        <div class="col-12 col-sm-10 my-1">
-                                            <span class="d-block d-sm-inline-block">مرتب سازی بر اساس:</span>
-                                            <span class="order-filter d-block d-sm-inline-block active">جدیدترین</span>
-                                            <span class="order-filter d-block d-sm-inline-block">پربازدیدترین</span>
-                                            <span class="order-filter d-block d-sm-inline-block">پرفروش‌ترین</span>
-                                            <span class="order-filter d-block d-sm-inline-block">ارزان‌ترین</span>
-                                        </div>
-                                        <div class="col-12 col-sm-2 pt-1 text-end">
-                                            <span>
-                                                <a href="products-list.html" class="products-view-type"><i class="fa fa-th-list"></i></a>
-                                                <a href="products.html" class="products-view-type active"><i class="fa fa-th"></i></a>
-                                            </span>
-                                            &nbsp;|&nbsp;
-                                            <span>122 کالا</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Filters -->
-                            <div class="mt-2" id="pager">
-                                <div class="container">
-                                    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gx-md-4">
-                                        <!-- Products -->
-                                        {% for p in products %}
-                                        <div class="col">
-                                            <!-- Product Box -->
-                                            <div class="product-box">
-                                                <a href="{% url 'shop:product' p.slug %}"><div class="image" style="background-image: url('{{ p.thumbnail.url }}')"></div></a>
-                                                <div class="details p-3">
-                                                    <div class="category">
-                                                        <a href="{% url 'shop:products-category' p.category.parent.slug %}">{{ p.category.parent }}</a>
-                                                        &nbsp;/&nbsp;
-                                                        <a href="{% url 'shop:products' p.category.slug %}">{{ p.category.title }}</a>
-                                                    </div>
-                                                    <a href="{% url 'shop:product' p.slug %}"><h2>{{ p.name }}</h2></a>
-                                                    <div class="price">{{ p.price}} تومان</div>
-                                                    <div class="rate">
-                                                        <i class="fa fa-star-half-alt"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <span class="reviews">(14 رای دهنده)</span>
-                                                    </div>
-                                                </div>
+                                        <div class="col-12">
+                                            <div class="d-flex justify-content-center pagination-sm box_pagination">
+                                                     <span class="step-links">
+                                                        {% if list.has_previous %}
+                                                            <a href="?page=1{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}" class="btn_page">
+                                                            <i class="fas fa-angle-double-right"></i>
+                                                            </a>
+                                                            <a href="?page={{ list.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}" class="btn_page">
+                                                            <i class="fas fa-angle-right"></i>
+                                                            </a>
+                                                        {% endif %}
+                                                         <span class="current-page">
+                                                             {{ list.number }} از {{ list.paginator.num_pages }}
+                                                         </span>
+
+                                                         {% if list.has_next %}
+                                                             <a href="?page={{ list.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}" class="btn_page">
+                                                             <i class="fas fa-angle-left"></i>
+                                                             </a>
+                                                             <a href="?page={{ list.paginator.num_pages }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}{% if request.GET.min_price %}&min_price={{ request.GET.min_price }}{% endif %}{% if request.GET.max_price %}&max_price={{ request.GET.max_price }}{% endif %}" class="btn_page">
+                                                             <i class="fas fa-angle-double-left"></i>
+                                                             </a>
+                                                         {% endif %}
+                                                     </span>
                                             </div>
-                                            <!-- /Product Box -->
-                                        </div>
-                                        {% endfor %}
-                                        <!-- /Products -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div id="pagination-bg">
-                                            <ul class="pagination justify-content-center pagination-sm"></ul>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- /Products -->
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        </div>
+        </div>
+        </div>
+    </section>
 {% endblock %}

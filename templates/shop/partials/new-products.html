@@ -1,0 +1,35 @@
+{% load base_tags %}
+
+{% for p in newProducts %}
+    <div class="col-12 col-md-4 col-lg-12 px-0 mt-2">
+        <a href="{% url 'shop:product' p.slug %}">
+            <div class="side-product">
+                <div class="row pl-3">
+                    <div class="col-3 pl-2">
+                        <div class="image"
+                             style="background-image: url('{{ p.thumbnail.url }}')"></div>
+                    </div>
+                    <div class="col-9 pr-0">
+                        <h2>{{ p.name }}</h2>
+                        <div class="row">
+                            <div class="col pl-0">
+                                {% if p.special != 0 %}
+                                    <span class="my_discounted">قیمت: {{ p.price }}</span>
+                                    <span>تخفیف: {{ p.get_price_after_discount }}</span>
+                                {% else %}
+                                        <span>قیمت: {{ p.price }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <span class="views"> بازدید:{{ p.visits }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+{% endfor %}

@@ -1953,7 +1953,34 @@ img {
 .blog-post-box .read-more svg {
   font-size: 10px;
 }
-
+.my_discounted {
+	font-size: 12px;
+	color: dimgray;
+	margin-left: 4px;
+	text-decoration: line-through;
+}
+.color_price{
+  color: #fcb941;
+}
 /* /Boxes */
 
 /*# sourceMappingURL=style.css.map */
+
+/* Custome style */
+.box_pagination {
+	background-color: #fff;
+	border-radius: 5px;
+	padding: 10px 0;
+	margin-top: 15px;
+	border: 1px solid #d4d4d4;
+}
+.btn_page{
+	padding: 1px 7px;
+	border: 1px solid #d3e3de;
+	border-radius: 3px;
+    margin: 1px 3px;
+}
+.current_page{
+  margin-right: 5px;
+  margin-left: 5px;
+}

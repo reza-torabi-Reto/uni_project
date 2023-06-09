@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
     'coupons.apps.CouponsConfig',
+    'contact.apps.ContactConfig',
+    'django_filters',
 
 ]
 
@@ -126,6 +128,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+# STATICFILES_DIRS = (os.path.join(BASE_DIR, '/static/'),)
 STATICFILES_DIRS = [BASE_DIR / "static",]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root/')
 
@@ -163,3 +166,7 @@ BRAINTREE_CONF = braintree.Configuration(
     BRAINTREE_PRIVATE_KEY
 )
 braintree.Configuration()
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 1

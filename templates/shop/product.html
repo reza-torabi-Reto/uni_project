@@ -106,7 +106,12 @@
                                     <a href="#tabs-panel"><span>(نقد و بررسی)</span></a>
                                 </div>
                                 <div class="price-container py-2">
-                                    <span class="price">{{ product.price }} <span>تومان</span></span>
+                                    {% if product.special != 0 %}
+                                        <span class="pre-price">قیمت: {{ product.price }}</span>
+                                        <span class="price">تخفیف: {{ product.get_price_after_discount }}</span>
+                                    {% else %}
+                                        <span class="price">قیمت: {{ product.price }}</span>
+                                    {% endif %}
                                     <div class="badge badge-danger font-weight-light m-1 py-1 px-2">10%</div>
                                 </div>
                                 <p>{{ product.description }}</p>
@@ -119,7 +124,8 @@
                                             <div class="col-12 col-sm-4 col-lg-3">
                                                 <div class="variable">
                                                     <div class="sub-title pt-2 pb-2">تعداد</div>
-                                                    <input type="number" min="1" max="10" class="form-control" name="quantity" value="1">
+                                                    <input type="number" min="1" max="10" class="form-control"
+                                                           name="quantity" value="1">
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +135,8 @@
                                             <div class="col-12">
                                                 <div class="btn btn-success px-4 px-lg-2 px-xl-4 btn-add-to-basket text-center">
                                                     <i class="fa fa-shopping-cart"></i>
-                                                    <input type="submit" value="افزودن به سبد خرید" style="background-color: transparent; border: none; color:white" />
+                                                    <input type="submit" value="افزودن به سبد خرید"
+                                                           style="background-color: transparent; border: none; color:white"/>
                                                 </div>
                                                 <br class="d-sm-none">
                                             </div>
@@ -353,113 +360,37 @@
 
                         <!-- Suggested Products -->
                         <div class="col-12 pt-5" id="suggested-products">
-                            <div class="title py-3 text-center">محصولات مرتبط</div>
-                            <div class="owl-carousel products-carousel">
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('assets/images/products/p303.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
+                            {% if recommended_products %}
+                                <div class="title py-3 text-center">محصولات مرتبط</div>
+                                <div class="owl-carousel products-carousel">
+                                    <!-- Product Item -->
+                                    {% for p in recommended_products %}
+                                        <div class="product-box">
+                                            <a href="{% url 'shop:product' p.slug %}">
+                                                <div class="image"
+                                                     style="background-image:url('{{ p.thumbnail.url }}')"></div>
+                                            </a>
+                                            <div class="icons">
+                                                <div class="btn btn-outline-secondary btn-favorite"></div>
+                                                <div class="btn btn-outline-secondary btn-compare"></div>
+                                            </div>
+                                            <div class="details p-3">
+                                                <div class="category">
+                                                    <a href="{% url 'shop:products-category' p.category.parent.slug %}">{{ p.category.parent }}</a>
+                                                    &nbsp;/&nbsp;
+                                                    <a href="{% url 'shop:products' p.category.slug %}">{{ p.category }}</a>
+                                                </div>
+                                                <a href="{% url 'shop:product' p.slug %}"><h2>{{ p.name }}</h2></a>
+                                                <div class="price">{{ p.price }}</div>
+                                                <div class="rate">
+                                                    {% ratings p %}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <a href="./product.html"><h2>مودم روتر ADSL2 Plus بی‌ سیم N300 دی-لینک مدل
-                                            DSL-2740U</h2></a>
-                                        <div class="price">3.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
+                                    <!-- /Product Item -->
                                 </div>
-                                <!-- /Product Item -->
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('assets/images/products/p201.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>لپ تاپ 14 اینچی ایسوس مدل ZenBook UM433IQ -
-                                            A5023</h2></a>
-                                        <div class="price">5.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('assets/images/products/p302.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>اسپیکر بلوتوثی قابل حمل تی اند جی مدل Tg-113</h2>
-                                        </a>
-                                        <div class="price">4.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                                <!-- Product Item -->
-                                <div class="product-box item">
-                                    <a href="./product.html">
-                                        <div class="image"
-                                             style="background-image: url('assets/images/products/p203.png')"></div>
-                                    </a>
-                                    <div class="details p-3">
-                                        <div class="category">
-                                            <a href="./products.html">گوشی موبایل</a>
-                                            &nbsp;/&nbsp;
-                                            <a href="./products.html">سامسونگ</a>
-                                        </div>
-                                        <a href="./product.html"><h2>لپ تاپ 15 اینچی ایسوس مدل VivoBook X543MA - A</h2>
-                                        </a>
-                                        <div class="price">3.000.000 تومان</div>
-                                        <div class="rate">
-                                            <i class="fa fa-star-half-alt"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <span class="reviews">(14 رای دهنده)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- /Product Item -->
-                            </div>
+                            {% endif %}
                         </div>
                         <!-- /Suggested Products -->
                     </div>
@@ -487,7 +418,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
     <script src="{% static 'shop/js/product-gallery.js' %}"></script>
-
-
 
 {% endblock %}

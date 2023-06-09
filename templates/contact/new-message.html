@@ -1,0 +1,165 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+
+{% block main %}
+
+    <section class="inner-page" id="contact-page">
+        <div class="container-fluid" id="page-hero">
+            <div class="row">
+                <div class="col-12">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 px-0">
+                                <h1>تماس با ما</h1>
+                                <p>با ما در ارتباط باشید.</p>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="./index.html">صفحه نخست</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">تماس با ما</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content p-0 p-sm-3">
+                        <div class="row">
+                            <div class="col-12 col-lg-5 text-center" id="contact-page-info">
+                                <div class="info">
+                                    <svg class="svg-inline--fa fa-map-marked fa-w-18" aria-hidden="true"
+                                         focusable="false" data-prefix="fa" data-icon="map-marked" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                              d="M288 0c-69.59 0-126 56.41-126 126 0 56.26 82.35 158.8 113.9 196.02 6.39 7.54 17.82 7.54 24.2 0C331.65 284.8 414 182.26 414 126 414 56.41 357.59 0 288 0zM20.12 215.95A32.006 32.006 0 0 0 0 245.66v250.32c0 11.32 11.43 19.06 21.94 14.86L160 448V214.92c-8.84-15.98-16.07-31.54-21.25-46.42L20.12 215.95zM288 359.67c-14.07 0-27.38-6.18-36.51-16.96-19.66-23.2-40.57-49.62-59.49-76.72v182l192 64V266c-18.92 27.09-39.82 53.52-59.49 76.72-9.13 10.77-22.44 16.95-36.51 16.95zm266.06-198.51L416 224v288l139.88-55.95A31.996 31.996 0 0 0 576 426.34V176.02c0-11.32-11.43-19.06-21.94-14.86z"></path>
+                                    </svg><!-- <i class="fa fa-map-marked"></i> Font Awesome fontawesome.com -->
+                                    <div class="title">آدرس فروشگاه:</div>
+                                    <div>ایران، تهران، جردن</div>
+                                </div>
+                                <div class="info">
+                                    <svg class="svg-inline--fa fa-phone fa-w-16" aria-hidden="true" focusable="false"
+                                         data-prefix="fa" data-icon="phone" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                              d="M493.4 24.6l-104-24c-11.3-2.6-22.9 3.3-27.5 13.9l-48 112c-4.2 9.8-1.4 21.3 6.9 28l60.6 49.6c-36 76.7-98.9 140.5-177.2 177.2l-49.6-60.6c-6.8-8.3-18.2-11.1-28-6.9l-112 48C3.9 366.5-2 378.1.6 389.4l24 104C27.1 504.2 36.7 512 48 512c256.1 0 464-207.5 464-464 0-11.2-7.7-20.9-18.6-23.4z"></path>
+                                    </svg><!-- <i class="fa fa-phone"></i> Font Awesome fontawesome.com -->
+                                    <div class="title">تلفن تماس:</div>
+                                    <div>02112345678</div>
+                                    <div>09351234567</div>
+                                </div>
+                                <div class="info">
+                                    <svg class="svg-inline--fa fa-envelope fa-w-16" aria-hidden="true" focusable="false"
+                                         data-prefix="fa" data-icon="envelope" role="img"
+                                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                        <path fill="currentColor"
+                                              d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+                                    </svg><!-- <i class="fa fa-envelope"></i> Font Awesome fontawesome.com -->
+                                    <div class="title">پست الکترونیک:</div>
+                                    <div>email@website.com</div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-7 p-4">
+                                <div class="title">ارسال پیام</div>
+                                <p>نظرات، پیشنهادات و انتقادات سازنده خود را از طریق فرم زیر با ما در میان بگذارید. ما
+                                    در این فروشگاه اینترنتی همواره برای بهبود خدمات خود در تلاش هستیم.</p>
+
+                                <p>{% if messages %}
+                                    <div class="alert alert-success text-right">
+                                        {% for m in messages %}
+                                            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}
+                                                                      style="font-size: 13px;">{{ m }}</li>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                </p>
+                                <form action="" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="name">نام شما :</label>
+                                        <input type="text" class="form-control" name="name" maxlength="70"
+                                               placeholder="نامتان را بنویسی" required="" id="id_name">
+                                        {% if form.name.errors %}
+                                            {% for er in form.name.errors %}
+                                                <p class="w-100 text-right"
+                                                   style="color: red; font-size: 14px; margin: 5px 5px 0;">{{ er }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="phone">تلفن تماس :</label>
+                                        <input type="text" class="form-control" name="phone" maxlength="12"
+                                               placeholder="شماره تماس خود را وارد کنید" required="" id="id_phone">
+                                        {% if form.phone.errors %}
+                                            {% for er in form.phone.errors %}
+                                                <p class="w-100 text-right"
+                                                   style="color: red; font-size: 14px; margin: 5px 5px 0;">{{ er }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">رایانامه :</label>
+                                        <input type="email" name="email" class="form-control text-start" maxlength="254"
+                                               placeholder="رایانامه خود را وارد کنید" required="" id="id_email">
+                                        {% if form.email.errors %}
+                                            {% for er in form.email.errors %}
+                                                <p class="w-100 text-right"
+                                                   style="color: red; font-size: 14px; margin: 5px 5px 0;">{{ er }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="text">متن پیام :</label>
+                                        <textarea name="text" cols="40" rows="10" placeholder="پیام خود را بنویسید"
+                                                  required="" id="id_text" class="form-control" id="text" rows="3"
+                                                  style="height: 240px;">
+                                        </textarea>
+                                        {% if form.text.errors %}
+                                            {% for er in form.text.errors %}
+                                                <p class="w-100 text-right"
+                                                   style="color: red; font-size: 14px; margin: 5px 5px 0;">{{ er }}</p>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" value="ارسال پیام" class="btn btn-success">
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12 mt-4 px-0">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13877.455761926274!2d52.5714962!3d29.5931048!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xcc3a67871fb07f53!2z2YjYqCDYsdmI2KjbjNqpIC0gV2ViUnViaWs!5e0!3m2!1sen!2sca!4v1600581121318!5m2!1sen!2sca"
+                                        class="rounded" width="100%" height="400"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}
+
+
+{% block csscustome %}
+    <link rel="stylesheet" href="{% static 'shop/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'shop/css/product-gallery.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.css"/>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/default-skin/default-skin.min.css"/>
+{% endblock %}
+
+{% block jscustome %}
+    <script src="{% static 'shop/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'shop/js/nav-tabs.js' %}"></script>
+    <script src="{% static 'shop/js/swiper-bundle.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.1.3/photoswipe-ui-default.min.js"></script>
+    <script src="{% static 'shop/js/product-gallery.js' %}"></script>
+
+{% endblock %}

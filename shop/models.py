@@ -4,9 +4,12 @@ from django.utils import timezone
 from extensions.utils import jalali_canvert
 from django.contrib.contenttypes.fields import GenericRelation
 from star_ratings.models import Rating
+from decimal import Decimal
+from django.db.models import Avg
+from django.db.models import Sum
+
 import uuid
 import os
-
 # Create your models here.
 
 
@@ -39,15 +42,17 @@ class Product(models.Model):
         ('h', 'پنهان'),
     )
     status = models.CharField(max_length=1, choices=STATUS_CHOISE, verbose_name='وضعیت')
+    is_active = models.BooleanField(default=True ,verbose_name='وضعیت نمایش')
     slug = models.SlugField(unique=True,allow_unicode=True , verbose_name='نامک')
     name = models.CharField(max_length=255, verbose_name="نام")
     description = models.TextField(blank=True, max_length=600, verbose_name='توضیحات')
     review = models.TextField(blank=True, max_length=600, verbose_name='نقد و بررسی')
     price = models.IntegerField(verbose_name='قیمت')
+    special = models.IntegerField(default=0, verbose_name='تخفیف')
     thumbnail = models.ImageField(upload_to='images/products/thumbnails/',)
-    # images = models.ManyToManyField('Image', blank=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.CASCADE, related_name='products',
                                  verbose_name='دسته')
+
     publish = models.DateTimeField(default=timezone.now, verbose_name='تاریخ نمایش')
     created = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ایجاد')
     updated = models.DateTimeField(auto_now=True, verbose_name='تاریخ ویرایش')
@@ -63,8 +68,8 @@ class Product(models.Model):
         return reverse('shop:product', args=[self.slug])
 
     def __str__(self):
-        return f'{self.id} {self.slug} {self.price}'
-
+        # return f'{self.id} {self.slug} {self.price}'
+        return str(self.price)
     def jCreated(self):
         return jalali_canvert(self.created)
     jCreated.short_description = 'تاریخ ایجاد'
@@ -76,7 +81,43 @@ class Product(models.Model):
             self.visits += 1
             self.save()
 
-#
+
+    def sort_products(self, p, sort_by, min, max):
+        queryset=''
+        if sort_by == 'price_asc':
+            queryset = p.order_by('price')
+        elif sort_by == 'price_desc':
+            queryset = p.order_by('-price')
+        elif sort_by == 'sales':
+            queryset = p.annotate(total_sales=Sum('order_items__quantity')).order_by('-total_sales')
+        elif sort_by == 'visits':
+            queryset = p.order_by('-visits')
+        elif sort_by == 'stars':
+            queryset = p.annotate(avg_rating=Avg('ratings__average')).order_by('-ratings__average')
+
+        if min is not None and max is not None:
+            queryset = p.filter(price__range=(min, max))
+
+        return queryset
+
+    def get_discount_amount(self):
+        price = self.price # 5,000
+        special = self.special # 10%
+        return int((special / Decimal(100)) * price)  # 500
+
+
+    def get_price_after_discount(self):
+        per_price = self.price  # 5,000
+        special = self.special  # 10%
+        special_amount = (special / Decimal(100)) * per_price  # 500
+        p= int(per_price - special_amount)
+        return p
+
+
+    # def best_selling(self, p):
+    #     return p.objects.annotate(total_sales=Sum('order_items__quantity')).order_by('-total_sales')
+
+
 class Visit(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='نام محصول')
     ip_address = models.CharField(max_length=255, verbose_name='آی پی آدرس بازدید کننده')

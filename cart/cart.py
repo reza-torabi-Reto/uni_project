@@ -16,8 +16,12 @@ class Cart(object):
 
     def add(self, product, quantity=1, override_quantity=False):
         product_id = str(product.id)
+        if product.special > 0:
+            price = product.get_price_after_discount()
+        else:
+            price = product.price
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0,'price': str(product.price)}
+            self.cart[product_id] = {'quantity': 0, 'price': str(price)}
         if override_quantity:
             self.cart[product_id]['quantity'] = quantity
         else:
@@ -34,6 +38,8 @@ class Cart(object):
         """
         product_id = str(product.id)
         if product_id in self.cart:
+            # request.session['order_id'] = order.id
+            # del request.session['coupon_id']
             del self.cart[product_id]
             self.save()
 
@@ -49,7 +55,7 @@ class Cart(object):
         for product in products:
             cart[str(product.id)]['product'] = product
         for item in cart.values():
-            item['price'] = Decimal(item['price'])
+            item['price'] = int(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
 
@@ -60,8 +66,15 @@ class Cart(object):
         return sum(item['quantity'] for item in self.cart.values())
 
     def get_total_price(self):
+        # total= 0
+        # for item in self.cart.values():
+        #     if item['special'] == 0:
+        #         total+= Decimal(item['price']) * item['quantity']
+        #     else:
+        #         total += Decimal(item['price']) * item['quantity']
         return sum(Decimal(item['price']) * item['quantity'] for item
                    in self.cart.values())
+
 
     def clear(self):
         # remove cart from session
@@ -80,7 +93,8 @@ class Cart(object):
 
     def get_discount(self):
         if self.coupon:
-            return (self.coupon.discount / Decimal(100)) * self.get_total_price()
+            c= (self.coupon.discount / Decimal(100)) * self.get_total_price()
+            return c
         return Decimal(0)
 
     def get_total_price_after_discount(self):

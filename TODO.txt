@@ -12,21 +12,26 @@ todo add comments for product:
 [+] show most stars
 [+] show latest products
 
-[+] create basket buy > create template basket list to 261 page book
-[+] done send email order by consol #1.>>pip install celery 2.>>celery -A myshop worker -l info (cmd in directory project)
+[+] create basket buy
+[+] done send email order by consol
 [+] create process buy
 [+] export to pdf
 [+] create discunt-copoun
 [+] Show discounts-copoun
 [+] Show the best sellers
 
-[] create recommender
+[+] create recommender:
+[+] create search products # به پیام "کالا یافن نشد" استایل بدم!
+[+] create search filter for products
+[+] sort products in list pages
+
+[+] show new products in list pages
+[+] spcial products #کالاهای تخفیف خورده
+[+] create-discunt
+[+] create-contact-us
+[] create-app-setting-other
+
 [] create two language
-
-[] create-discunt
-
-[] create search products
-[] create search filter for products
 
 [] create app blog
 
@@ -35,6 +40,7 @@ bugs:
 باگهای فرانت اند بخش منو حل شود![]
 !باگ نمایش پیام برای دیدگاه جدید []
 بعد پرداخت به دان ریدایرکت نمیشه []
+نمایش پی دی اف سفارش [+]
 دریافت ایمیل سفارش کالا []
 ---------------------------
 notes
@@ -49,7 +55,12 @@ notes
 
 #run celery:
 >>celery -A core worker -l info --pool=solo
+
+#for start redis:
+>>sudo service redis-server start
 -------------------
 
 Install Packages:
 WeasyPrint
+Redis
+django-filter
